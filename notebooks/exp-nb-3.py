@@ -17,9 +17,9 @@ warnings.simplefilter("ignore", UserWarning)
 warnings.filterwarnings("ignore")
 
 # Set MLflow Tracking URI & DAGsHub integration
-MLFLOW_TRACKING_URI = "https://dagshub.com/vikashdas770/learnyard-capstone-project1.mlflow"
-repo_owner = "vikashdas770"
-repo_name = "learnyard-capstone-project1"
+MLFLOW_TRACKING_URI = "https://dagshub.com/thearpitgupta2003/main-project.mlflow"
+repo_owner = "thearpitgupta2003"
+repo_name = "main-project"
 
 dagshub.init(repo_owner=repo_owner, repo_name=repo_name, mlflow=True)
 mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)

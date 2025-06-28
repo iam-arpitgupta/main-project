@@ -24,9 +24,9 @@ warnings.filterwarnings("ignore")
 CONFIG = {
     "data_path": "notebooks/data.csv",
     "test_size": 0.2,
-    "mlflow_tracking_uri": "https://dagshub.com/thearpitgupta2003/capstone-project1.mlflow",
+    "mlflow_tracking_uri": "https://dagshub.com/thearpitgupta2003/main-project.mlflow",
     "dagshub_repo_owner": "thearpitgupta2003",
-    "dagshub_repo_name": "capstone-project1",
+    "dagshub_repo_name": "main-project",
     "experiment_name": "feature-egg-model-exp"
 }
 

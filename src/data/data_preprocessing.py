@@ -1,7 +1,10 @@
-import numpy as np
-import pandas as pd
 import os
 import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
+
+import numpy as np
+import pandas as pd
 import logging
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import PowerTransformer
@@ -44,7 +47,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
         normal_under_sample = resample(normal, replace=False, n_samples=len(fraud), random_state=27)
         df_balanced = pd.concat([normal_under_sample, fraud]).sample(frac=1, random_state=42).reset_index(drop=True)
         
-        logging.info()
+        logging.info(f"New balanced dataset after undersampling : {df_balanced}")
         
         return df_balanced
     except KeyError as e:

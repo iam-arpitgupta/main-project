@@ -1,7 +1,10 @@
-import numpy as np
-import pandas as pd
 import os
 import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
+import numpy as np
+import pandas as pd
+
 import logging
 from sklearn.preprocessing import PowerTransformer
 from src.logger import logging  # Ensure your logger is properly set up
@@ -63,7 +66,7 @@ def save_data(df: pd.DataFrame, file_path: str) -> None:
 def main():
     try:
         # Load processed train & test data from interim
-        train_data = load_data()
+        train_data = load_data('./data/interim/train_preprocessed.csv')
         test_data = load_data('./data/interim/test_preprocessed.csv')
 
         # Apply Power Transformer

@@ -1,7 +1,7 @@
 data_preprocessing:
-  test_size: 0.26
+  test_size: 0.27
 
 model:
-  C: 0.1
+  C: 0.2
   solver: 'liblinear'
   penalty: 'l2'

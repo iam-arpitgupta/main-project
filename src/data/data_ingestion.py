@@ -1,10 +1,12 @@
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
 import numpy as np
 import pandas as pd
 pd.set_option('future.no_silent_downcasting', True)
-import os
 from sklearn.model_selection import train_test_split
 import yaml
-import sys
 from src.logger import logging
 # from src.connections import s3_connection
 

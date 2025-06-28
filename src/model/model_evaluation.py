@@ -1,3 +1,6 @@
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 import numpy as np
 import pandas as pd
 import pickle
@@ -7,34 +10,34 @@ import logging
 import mlflow
 import mlflow.sklearn
 import dagshub
-import os
-import sys
+import joblib
+
 from src.logger import logging
 
 
 # Below code block is for production use
 # -------------------------------------------------------------------------------------
 # Set up DagsHub credentials for MLflow tracking
-dagshub_token = os.getenv("CAPSTONE_TEST")
-if not dagshub_token:
-    raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
+# dagshub_token = os.getenv("CAPSTONE_TEST")
+# if not dagshub_token:
+#     raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
 
-os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
-os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+# os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+# os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
-dagshub_url = "https://dagshub.com"
-repo_owner = "vikashdas770"
-repo_name = "learnyard-capstone-project1"
+# dagshub_url = "https://dagshub.com"
+# repo_owner = "vikashdas770"
+# repo_name = "learnyard-capstone-project1"
 
 # Set up MLflow tracking URI
-mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
+# mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
 
 # -------------------------------------------------------------------------------------
 
 # Below code block is for local use
 # -------------------------------------------------------------------------------------
-# mlflow.set_tracking_uri("https://dagshub.com/vikashdas770/learnyard-capstone-project1.mlflow")
-# dagshub.init(repo_owner='vikashdas770', repo_name='learnyard-capstone-project1', mlflow=True)
+mlflow.set_tracking_uri("https://dagshub.com/thearpitgupta2003/main-project.mlflow")
+dagshub.init(repo_owner='thearpitgupta2003', repo_name='main-project', mlflow=True)
 # -------------------------------------------------------------------------------------
 
 
@@ -132,10 +135,22 @@ def main():
                 params = clf.get_params()
                 for param_name, param_value in params.items():
                     mlflow.log_param(param_name, param_value)
-            
-            # Log model to MLflow
-            mlflow.sklearn.log_model(clf, "model")
-            
+
+            # this will show an eror as it is outdated code 
+            #DagsHub currently does not support all MLflow features, especially those related to:
+
+            # Model Registry
+
+            # Some internal API calls used by log_model(...)
+            # mlflow.sklearn.log_model(clf, "model")
+            # This avoids the model registry altogether and only uploads the model as a file,
+            #  which is fully supported by DagsHub.
+
+
+            os.makedirs("models", exist_ok=True)
+            joblib.dump(clf, "models/model.pkl")
+            mlflow.log_artifact("models/model.pkl", artifact_path="model")
+                                
             # Save model info
             save_model_info(run.info.run_id, "model", 'reports/experiment_info.json')
             
